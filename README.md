@@ -2,7 +2,9 @@
 
 Upgrade a repository from “looks fine” to “safe, polished, discoverable, and ready to share.”
 
-中文说明：主要技能定义见 [SKILL.md](./SKILL.md)。
+中文说明：
+- 技能定义见 [SKILL.md](./SKILL.md)
+- 中文 README 见 [README.zh-CN.md](./README.zh-CN.md)
 
 `github-repo-commander` is the unified GitHub command skill for maintenance, packaging, and open-source readiness. It combines presentation polish with governance checks so a repo can be:
 
@@ -24,6 +26,8 @@ Upgrade a repository from “looks fine” to “safe, polished, discoverable, a
 - model-agnostic refactor guidance
 - awesome-list contribution prep
 - packaging workflow orchestration
+- bilingual documentation governance
+- upgrade-note discipline
 
 ## Why this is one skill
 
@@ -39,6 +43,8 @@ This package keeps `github-repo-polish`, `readme-generator`, and `ai-discoverabi
 ## Files
 
 - [SKILL.md](./SKILL.md): main skill instructions
+- [README.zh-CN.md](./README.zh-CN.md): Chinese overview
+- [CHANGELOG.md](./CHANGELOG.md): notable upgrades
 - [skill.json](./skill.json): Manus-style metadata
 - [scripts/repo_commander_audit.py](./scripts/repo_commander_audit.py): repo audit helper
 - [agents/openai.yaml](./agents/openai.yaml): skill card metadata

@@ -52,6 +52,9 @@ DOC_LIKE_EXTS = {
     ".cfg",
 }
 
+README_EN_FILES = ("README.md", "README")
+README_ZH_FILES = ("README.zh-CN.md", "README_zh-CN.md", "README.zh.md")
+
 
 def is_text_candidate(path: Path) -> bool:
     if path.name.startswith(".env"):
@@ -96,6 +99,52 @@ def check_skill_metadata(root: Path, findings: list[dict]) -> None:
         findings.append({"severity": "low", "type": "skill_meta", "message": "No _meta.json found for a skills-style directory."})
 
 
+def find_first_existing(root: Path, names: tuple[str, ...]) -> Path | None:
+    for name in names:
+        path = root / name
+        if path.exists():
+            return path
+    return None
+
+
+def check_docs_governance(root: Path, findings: list[dict]) -> None:
+    readme_en = find_first_existing(root, README_EN_FILES)
+    readme_zh = find_first_existing(root, README_ZH_FILES)
+
+    if not readme_en:
+        findings.append({"severity": "medium", "type": "readme_missing", "message": "README.md is missing."})
+    else:
+        text = read_text(readme_en) or ""
+        if "README.zh-CN.md" not in text and "中文" not in text and "Chinese" not in text:
+            findings.append({
+                "severity": "low",
+                "type": "readme_bilingual_link",
+                "message": "README.md does not clearly link to a Chinese README or mention localization."
+            })
+
+    if not readme_zh:
+        findings.append({
+            "severity": "low",
+            "type": "readme_zh_missing",
+            "message": "No Chinese README found. Consider adding README.zh-CN.md for bilingual public repos."
+        })
+    else:
+        text = read_text(readme_zh) or ""
+        if "README.md" not in text and "English" not in text:
+            findings.append({
+                "severity": "low",
+                "type": "readme_en_link",
+                "message": f"{readme_zh.name} does not clearly link back to the English README."
+            })
+
+    if not (root / "CHANGELOG.md").exists():
+        findings.append({
+            "severity": "low",
+            "type": "changelog_missing",
+            "message": "CHANGELOG.md is missing. Public package-style repos should document visible upgrades."
+        })
+
+
 def should_skip_self_reference_checks(path: Path) -> bool:
     return path.name in {"repo_commander_audit.py", ".project_root"}
 
@@ -116,13 +165,7 @@ def audit_repo(root: Path) -> dict:
         if path.exists():
             findings.append({"severity": "high", "type": "sensitive_file", "message": f"Sensitive file present: {path.name}"})
 
-    readme = root / "README.md"
-    if not readme.exists():
-        findings.append({"severity": "medium", "type": "readme_missing", "message": "README.md is missing."})
-    else:
-        text = read_text(readme) or ""
-        if "中文" not in text and "Chinese" not in text:
-            findings.append({"severity": "low", "type": "readme_localization", "message": "README does not mention a Chinese version or localization link."})
+    check_docs_governance(root, findings)
 
     check_skill_metadata(root, findings)
 

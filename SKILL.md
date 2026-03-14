@@ -32,6 +32,8 @@ It also covers the presentation layer directly:
 - screenshots, demos, and visual hierarchy
 - topics, homepage, and GitHub metadata
 - repo packaging for portfolio or community discovery
+- bilingual documentation hygiene for public-facing repos
+- upgrade-note discipline so visible capability changes are documented
 
 ## What this skill is for
 
@@ -58,18 +60,23 @@ Use it when the user wants to:
 4. Then improve packaging and discoverability:
    - repo description
    - README first screen
+   - bilingual README coverage when the repo serves both Chinese and international readers
    - screenshots / demo / topics
    - visual hierarchy
    - social preview / portfolio positioning when relevant
-5. If the repo is skill-like, verify:
+5. If the repo changed in a user-visible way, update the public docs at the same time:
+   - `README.md`
+   - `README.zh-CN.md` when the repo uses a Chinese doc track
+   - `CHANGELOG.md` or release notes for meaningful upgrades
+6. If the repo is skill-like, verify:
    - `SKILL.md` frontmatter
    - `skill.json`
    - `_meta.json` when required by the target ecosystem
-6. If the repo is too model-specific, refactor toward model-agnostic behavior:
+7. If the repo is too model-specific, refactor toward model-agnostic behavior:
    - generic instructions
    - explicit capability assumptions
    - graceful degradation for smaller or local models
-7. If the target is an awesome-list:
+8. If the target is an awesome-list:
    - normalize repository URL
    - verify alphabetical placement
    - update counters or section summaries if needed
@@ -96,6 +103,8 @@ The script checks for:
 - missing skill metadata files
 - obviously model-specific wording
 - README presence and basic packaging issues
+- bilingual README coverage and cross-link expectations
+- changelog / upgrade-note presence for public package-style repos
 
 ## How to combine it
 
@@ -112,6 +121,8 @@ Use together with:
 
 - Fix safety and privacy problems before beautifying the repo
 - Once safety is acceptable, actively improve the repo's presentation instead of stopping at compliance
+- If the upgrade changes visible behavior, update the docs in the same pass instead of treating docs as optional follow-up
+- Prefer a bilingual README policy for repos that are actively shared with both Chinese-speaking and international users
 - Keep open-source repos free of local deployment details
 - Prefer human-readable GitHub positioning over keyword stuffing
 - Keep PR fixes focused and easy to review
