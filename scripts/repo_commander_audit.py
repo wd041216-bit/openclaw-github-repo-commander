@@ -42,6 +42,15 @@ TEXT_EXTS = {
     ".ini",
     ".cfg",
 }
+DOC_LIKE_EXTS = {
+    ".md",
+    ".txt",
+    ".yaml",
+    ".yml",
+    ".toml",
+    ".ini",
+    ".cfg",
+}
 
 
 def is_text_candidate(path: Path) -> bool:
@@ -88,7 +97,13 @@ def check_skill_metadata(root: Path, findings: list[dict]) -> None:
 
 
 def should_skip_self_reference_checks(path: Path) -> bool:
-    return path.name == "repo_commander_audit.py"
+    return path.name in {"repo_commander_audit.py", ".project_root"}
+
+
+def should_check_model_specificity(path: Path) -> bool:
+    if path.name.startswith(".env"):
+        return False
+    return path.suffix.lower() in DOC_LIKE_EXTS or path.name in {"SKILL.md", "README", "README.md"}
 
 
 def audit_repo(root: Path) -> dict:
@@ -140,7 +155,7 @@ def audit_repo(root: Path) -> dict:
         if not should_skip_self_reference_checks(path):
             lowered = text.lower()
             model_hits = [name for name in MODEL_NAMES if name in lowered]
-            if len(model_hits) >= 2 and path.name not in {"README.md", "README"}:
+            if len(model_hits) >= 2 and should_check_model_specificity(path) and path.name not in {"README.md", "README"}:
                 findings.append({
                     "severity": "low",
                     "type": "model_specificity",
