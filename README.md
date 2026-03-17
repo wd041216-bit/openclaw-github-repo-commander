@@ -1,147 +1,163 @@
-# 🐙 OpenClaw GitHub Repo Commander
+# openclaw-github-repo-commander
 
-> **Ultimate GitHub repository management skill** — powered by the 7-Stage Super Workflow.
+> An AI-powered GitHub repository management skill that applies the **7-Stage Super Workflow** to every task — deep audit, competitor benchmarking, and iterative optimization.
 
-[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-orange?logo=github)](https://github.com/wd041216-bit/openclaw-github-repo-commander)
-[![Version](https://img.shields.io/badge/version-2.1.0-blue)](SKILL.md)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-
----
-
-## 🚀 What It Does
-
-This skill transforms your AI agent into a **senior open-source maintainer and GitHub architect**. Instead of running simple `git` commands, it applies the **7-Stage Super Workflow** to ensure every repository operation is:
-
-- 🔍 **Deeply analyzed** — not just executed
-- 🏆 **Competitor-benchmarked** — compared against top-starred similar projects
-- 🔒 **Security-reviewed** — checks for vulnerabilities before committing
-- 📝 **Documentation-complete** — ensures README and docs are always updated
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-blue)](https://agentskills.io)
+[![Version](https://img.shields.io/badge/version-3.0.0-green)](CHANGELOG.md)
 
 ---
 
-## 📦 Installation
+## What It Does
 
-### Via ClawHub
+This skill transforms any AI agent into a senior open-source maintainer. When activated, it applies a structured 7-stage process to GitHub tasks: understanding the request, executing the operation, critically reflecting on the result, benchmarking against top competitors, synthesizing improvements, iterating, and validating the final output.
+
+The skill is designed to prevent the most common failure modes in automated repository management: hardcoded secrets, duplicate files, stale documentation, missing `.gitignore` rules, and shallow analysis that misses structural problems.
+
+---
+
+## Installation
+
+**Via ClawHub (recommended):**
 
 ```bash
-clawhub install openclaw-github-repo-commander
+clawdbot skill install wd041216-bit/openclaw-github-repo-commander
 ```
 
-### Manual
+**Manual installation:**
 
 ```bash
-# Clone into your OpenClaw skills directory
 git clone https://github.com/wd041216-bit/openclaw-github-repo-commander.git \
-  ~/.openclaw/skills/openclaw-github-repo-commander
+  ~/.claude/skills/openclaw-github-repo-commander
 ```
 
-### Requirements
-
-- [GitHub CLI (`gh`)](https://cli.github.com/) — must be installed and authenticated
-- `git` — standard git installation
-
-```bash
-# Authenticate GitHub CLI
-gh auth login
-```
+**Prerequisites:** `gh` (GitHub CLI >= 2.40) and `git` (>= 2.30). Run `gh auth login` once before first use.
 
 ---
 
-## 🎯 Trigger Phrases
+## Usage
 
-The skill activates when you say things like:
+Simply mention a GitHub task in your conversation. The skill activates automatically for:
 
-| Phrase | What Happens |
-|--------|-------------|
-| "管理我的 GitHub 仓库" | Full 7-stage repo audit |
-| "重构这个仓库" | Deep refactor with competitor analysis |
-| "深度审查这个 PR" | Security + quality PR review |
-| "创建一个新项目" | Creates repo + benchmarks against competitors |
-| "用超级工作流优化我的代码" | Full 7-stage optimization cycle |
-
----
-
-## 🔄 The 7-Stage Super Workflow
-
-```
-1. Intake       → Parse request, define success criteria
-2. Execution    → Run gh CLI commands, write/modify code
-3. Reflection ⭐ → Deep pain-point analysis (security, scalability, docs)
-4. Competitor ⭐ → Search & analyze top-starred similar repos
-5. Synthesis    → Combine findings into actionable improvements
-6. Iteration    → Apply improvements, confirm large changes with user
-7. Validation   → Push, verify CI/CD, present final GitHub link
-```
-
-> ⭐ Stages 3 and 4 are what make this skill different from a simple `git` wrapper.
+| Trigger Phrase | What Happens |
+|----------------|--------------|
+| "Manage my GitHub repo" | Full 7-stage repo audit and optimization |
+| "Clean up this library" | Removes duplicates, fixes docs, adds .gitignore |
+| "Review this PR" | Security + quality PR review with competitor context |
+| "Create a new project" | Creates repo and benchmarks against top competitors |
+| "Use super workflow on my code" | Full 7-stage optimization cycle |
+| "Analyze competitor repos" | Structured competitor benchmarking report |
+| `/super-workflow <repo-url>` | Runs the complete workflow on any repository |
 
 ---
 
-## 💡 Example Usage
+## The 7-Stage Super Workflow
 
-```
-User: "帮我分析并优化 wd041216-bit/openclaw-ultimate-suite 这个仓库"
+The skill applies this process to every non-trivial task:
 
-Agent:
-  Stage 1: Clones repo, identifies 44 skills, 3.8MB node_modules committed
-  Stage 2: Runs git log, finds duplicate skills, hardcoded secrets
-  Stage 3: Identifies security issues (APP_SECRET in code), empty dirs, duplicate files
-  Stage 4: Searches "openclaw skills" on GitHub, finds top-3 competitors
-  Stage 5: Recommends: remove duplicates, add .gitignore, fix secrets
-  Stage 6: Executes cleanup, commits with detailed message
-  Stage 7: Pushes, shows diff stats: -62,072 lines removed
-```
+**Stage 1 — Intake:** Parse the request type, inspect the target repository with `gh repo view`, and define explicit success criteria before touching any code.
 
----
+**Stage 2 — Execution:** Perform the primary GitHub operation (clone, edit files, create PR, etc.) using the appropriate `gh` and `git` commands.
 
-## 🛡️ Security & Privacy
+**Stage 3 — Reflection:** Run the automated audit script (`scripts/repo-audit.sh`) and manually verify: no hardcoded secrets, no duplicate directories, no empty stubs, comprehensive `.gitignore`, and accurate documentation.
 
-| Item | Details |
-|------|---------|
-| External Endpoints | `api.github.com` only (via `gh` CLI) |
-| Data Leaving Machine | Only git commit content and PR descriptions |
-| Credentials | Managed via `gh auth`, never hardcoded |
+**Stage 4 — Competitor Analysis:** Search top-starred repositories in the same domain (`gh search repos <keyword> --sort stars`), inspect their structure, and identify gaps between the current state and industry best practices.
+
+**Stage 5 — Synthesis:** Combine Stage 3 and Stage 4 findings into a prioritized improvement plan (P0/P1/P2), presented to the user for confirmation before execution.
+
+**Stage 6 — Iteration:** Apply all approved improvements with descriptive conventional commits. For large changes (>10 files), show a `git diff --stat` and get explicit user confirmation.
+
+**Stage 7 — Validation:** Push changes, verify CI/CD status with `gh run list`, and deliver a summary report with the GitHub link, change table, and key insights.
 
 ---
 
-## 📋 Quick Commands Reference
-
-```bash
-gh repo view <owner>/<repo>              # View repo info
-gh repo clone <owner>/<repo>            # Clone repo
-gh repo create <name> --private         # Create private repo
-gh search repos <keyword> --sort stars  # Find competitors
-gh pr create --title "..." --body "..." # Create PR
-gh pr list                              # List open PRs
-gh run list --limit 5                   # Check CI status
-gh issue list                           # List issues
-```
-
----
-
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 openclaw-github-repo-commander/
-├── SKILL.md          # OpenClaw skill definition (AgentSkills compatible)
-├── _meta.json        # ClawHub metadata
-├── README.md         # This file
-└── LICENSE           # MIT License
+├── SKILL.md                    # Skill metadata + concise instructions
+├── README.md                   # This file
+├── CHANGELOG.md                # Version history
+├── LICENSE                     # MIT License
+├── .gitignore                  # Standard exclusions
+├── references/
+│   ├── workflow.md             # 7-stage workflow detailed guide
+│   └── gh-commands.md          # Complete gh CLI command reference (50+)
+└── scripts/
+    ├── repo-audit.sh           # Automated Stage 3 audit (7 checks)
+    └── competitor-search.sh    # Stage 4 competitor search helper
 ```
 
 ---
 
-## 🔗 Related Skills
+## Automated Audit Script
 
-- [openclaw-ultimate-suite](https://github.com/wd041216-bit/openclaw-ultimate-suite) — Full skill collection including this one
-- [super-workflow](https://github.com/wd041216-bit/openclaw-ultimate-suite) — The 7-stage workflow methodology
+The `scripts/repo-audit.sh` script automates Stage 3 checks:
+
+```bash
+# Audit the current directory
+./scripts/repo-audit.sh
+
+# Audit a specific repository
+./scripts/repo-audit.sh /path/to/repo
+```
+
+The script runs 7 checks: hardcoded secrets scan, `.gitignore` coverage, empty directory detection, large file detection, `node_modules` tracking, broken README links, and script executability. It exits with code 1 if any critical issues are found.
 
 ---
 
-## 📄 License
+## Real-World Example
 
-MIT License — see [LICENSE](LICENSE) for details.
+```
+User: "Audit and optimize wd041216-bit/openclaw-ultimate-suite"
+
+Stage 1: Clones repo, identifies 44 skills, notes 3.8MB node_modules committed
+Stage 2: Runs git log, scans for duplicates and secrets
+Stage 3: Finds APP_SECRET hardcoded in feishu scripts, 3 empty dirs, 2 duplicate skill dirs
+Stage 4: Searches "agent skills" on GitHub, finds anthropics/skills (95.8k stars)
+Stage 5: Plan: remove duplicates, fix secrets, add .gitignore, update README
+Stage 6: Executes cleanup with 3 commits; removes 62,072 lines of redundant content
+Stage 7: Pushes, shows diff stats, delivers GitHub link with full change summary
+```
 
 ---
 
-*Made with 🦞 by [wd041216-bit](https://github.com/wd041216-bit)*
+## FAQ
+
+**Q: The skill did not activate automatically. What should I do?**
+
+Mention the task more explicitly, for example: "Use the GitHub Repo Commander skill to audit my repo at `<url>`." If the skill is installed correctly, this will always trigger it.
+
+**Q: `gh auth status` shows my token is expired.**
+
+Run `gh auth logout && gh auth login` to re-authenticate. If using a Personal Access Token, set `export GH_TOKEN=<your-new-token>`.
+
+**Q: The audit script found hardcoded secrets. What now?**
+
+Remove the secrets from the file immediately. Then run `git log --all --full-history -- <file>` to check if they were ever committed. If so, you must rotate the credentials in the affected service — removing from the current commit is not sufficient if the secret exists in git history.
+
+**Q: Can I use this skill on private repositories?**
+
+Yes. The skill uses `gh` CLI which respects your GitHub authentication. Ensure your token has the `repo` scope for private repository access.
+
+**Q: Can I skip the competitor analysis step for small tasks?**
+
+For minor tasks (typo fixes, small updates), Stage 4 can be skipped. For structural changes (new features, refactors, new repositories), Stage 4 is mandatory — it consistently surfaces improvements that would otherwise be missed.
+
+---
+
+## Related Skills
+
+- [openclaw-ultimate-suite](https://github.com/wd041216-bit/openclaw-ultimate-suite) — The full skill suite that includes this skill alongside 27 others
+
+---
+
+## Contributing
+
+Contributions are welcome. Please open an issue first to discuss proposed changes, then submit a pull request. See [CHANGELOG.md](CHANGELOG.md) for version history.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE) for details.

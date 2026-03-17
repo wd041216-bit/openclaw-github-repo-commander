@@ -1,150 +1,155 @@
 ---
 name: openclaw-github-repo-commander
-version: "2.1.0"
 description: >
-  Ultimate GitHub repository management skill powered by the 7-Stage Super Workflow.
-  Use for: managing repositories, creating PRs, reviewing code, analyzing competitors,
-  and performing deep structural optimizations on GitHub projects.
-homepage: https://github.com/wd041216-bit/openclaw-github-repo-commander
+  Manages GitHub repositories using a 7-stage Super Workflow: deep audit, competitor
+  analysis, structural cleanup, PR review, and iterative optimization. Use this skill
+  whenever the user mentions managing a repo, reviewing a PR, refactoring a codebase,
+  creating a new project, analyzing competitor repos, cleaning up skills or libraries,
+  running a super workflow, or any GitHub-related task that benefits from systematic
+  analysis. Activate even if the user only says "optimize my repo", "clean up this
+  library", "review this code", "compare with competitors", or "use super workflow" -
+  this skill handles all of it.
+license: MIT
+compatibility: Requires gh (GitHub CLI >= 2.40) and git (>= 2.30). Run gh auth login before first use.
 metadata:
-  clawdbot:
-    emoji: "🐙"
-    requires:
-      bins: ["gh", "git"]
-    files: []
+  author: wd041216-bit
+  version: "3.0.0"
+  homepage: https://github.com/wd041216-bit/openclaw-github-repo-commander
+allowed-tools: Bash(gh:*) Bash(git:*)
 ---
 
-# 🐙 GitHub Repo Commander (Super Workflow Edition)
+# GitHub Repo Commander
 
-> 将 AI Agent 变成资深开源维护者和 GitHub 架构师。整合 **7 阶段超级工作流**，确保每次代码变更、PR 审查或仓库重构都经过深度分析、竞品对比和高度优化。
+An AI-powered GitHub repository management skill that applies the **7-Stage Super Workflow** to every task, ensuring each commit, PR review, or repo restructure is backed by deep reflection and competitor benchmarking.
 
-## 触发场景
+## When to Use This Skill
 
-当用户提出以下需求时自动激活：
+Activate automatically when the user asks to:
 
-- "管理我的 GitHub 仓库"
-- "重构这个仓库"
-- "深度审查这个 PR"
-- "创建一个比现有项目更好的新项目"
-- "用超级工作流优化我的代码"
-- "分析竞品仓库结构"
+- Manage, audit, or clean up a GitHub repository
+- Review or create a pull request
+- Refactor or restructure a codebase
+- Create a new project (and benchmark against competitors)
+- Analyze competitor repositories
+- Apply a "super workflow" or "deep optimization" to any code
+- Delete low-value files, skills, or dependencies from a library
+- Run `/super-workflow` on a repository URL
 
-## 7 阶段超级工作流
-
-处理复杂 GitHub 任务时，**必须**按以下顺序执行：
-
-### 阶段 1：Intake（任务接收与分类）
-
-- 解析用户的 GitHub 请求（克隆、Fork、审查、重构等）
-- 使用 `gh repo view` 了解仓库当前状态、语言分布、Star 数
-- 定义成功标准（如"代码必须通过 CI"、"文档必须更新"）
-
-### 阶段 2：Execution（专项执行）
-
-执行主要 GitHub 操作：
+## Quick Start
 
 ```bash
-# 克隆仓库
+# Authenticate (one-time setup)
+gh auth login
+
+# Verify access
+gh auth status
+
+# Clone target repository
 gh repo clone <owner>/<repo>
-
-# 创建 PR
-gh pr create --title "feat: ..." --body "..."
-
-# 审查 PR
-gh pr review <id> --comment "..."
 ```
 
-在本地编写或修改必要的代码/文件。
+## 7-Stage Super Workflow
 
-### 阶段 3：Reflection ⭐（深度痛点反思）
+For all non-trivial tasks, execute these stages in order. See [`references/workflow.md`](references/workflow.md) for detailed per-stage guidance.
 
-提交或推送前，批判性地审查变更：
+| Stage | Name | Key Action |
+|-------|------|------------|
+| 1 | **Intake** | Understand the request, inspect repo state, define success criteria |
+| 2 | **Execution** | Perform the primary GitHub operation (clone, edit, create PR, etc.) |
+| 3 | **Reflection** | Critically audit the work: security, scalability, docs, test coverage |
+| 4 | **Competitor Analysis** | Search top-starred repos; identify gaps vs. best practices |
+| 5 | **Synthesis** | Combine reflection + competitor findings into an actionable plan |
+| 6 | **Iteration** | Apply improvements; commit with descriptive messages |
+| 7 | **Validation** | Push, verify CI/CD, deliver GitHub link + summary to user |
 
-- **代码可扩展性**：架构是否支持未来增长？
-- **安全漏洞**：是否有硬编码凭证、注入风险？
-- **文档清晰度**：新贡献者能否快速上手？
-- **测试覆盖**：关键路径是否有测试？
+> **Rule:** Never skip Stage 3 (Reflection) or Stage 4 (Competitor Analysis) for structural changes. Surface-level success is not acceptable.
 
-> 不接受表面成功。如有 linter 或测试，必须运行。
+## Core Operations
 
-### 阶段 4：Competitor Analysis ⭐（竞品对比研究）
-
-构建新功能或仓库时：
+### Repository Management
 
 ```bash
-# 搜索相似项目
+gh repo view <owner>/<repo>                        # Inspect repo metadata
+gh repo clone <owner>/<repo>                       # Clone locally
+gh repo create <name> --private                    # Create new private repo
+gh search repos <keyword> --sort stars --limit 10  # Find competitors
+gh repo fork <owner>/<repo>                        # Fork a repo
+```
+
+### Pull Requests and Issues
+
+```bash
+gh pr create --title "<title>" --body "<body>"  # Create PR
+gh pr list                                       # List open PRs
+gh pr review <id> --comment "<feedback>"         # Review PR
+gh pr merge <id> --squash                        # Merge PR
+gh issue list                                    # List issues
+gh issue create --title "<title>"                # Create issue
+```
+
+### CI/CD and Releases
+
+```bash
+gh run list --limit 5          # View recent workflow runs
+gh run view <run-id>           # Inspect a specific run
+gh release create v1.0.0       # Create a release
+gh release list                # List all releases
+```
+
+For the full command reference (50+ commands), see [`references/gh-commands.md`](references/gh-commands.md).
+
+## Reflection Checklist (Stage 3)
+
+Before committing any structural change, verify all of the following:
+
+- [ ] No hardcoded credentials, tokens, or secrets in any file
+- [ ] No duplicate files or directories (use `diff -r` to confirm)
+- [ ] No empty directories or placeholder stubs without content
+- [ ] `node_modules/`, `__pycache__/`, `.env`, `*.orig` are in `.gitignore`
+- [ ] README accurately reflects the current state of the repo
+- [ ] All referenced files and links actually exist
+- [ ] Scripts are executable and have no hardcoded business-specific values
+- [ ] No large binary files committed accidentally
+
+## Competitor Analysis Guide (Stage 4)
+
+```bash
+# Find top competitors
 gh search repos <keyword> --sort stars --limit 10
+
+# Inspect a competitor structure
+gh repo clone <competitor>/<repo> /tmp/competitor-ref
+find /tmp/competitor-ref -maxdepth 3 -type f | head -30
 ```
 
-分析高 Star 竞品仓库：
-- 代码结构如何组织？
-- 使用哪些 CI/CD 工具？
-- 文档是如何撰写的？
-- 找到当前执行与业界最佳实践的"差距"
+Evaluate competitors on: directory structure, CI/CD setup, documentation quality, test coverage, `.gitignore` completeness, and README clarity.
 
-### 阶段 5：Synthesis（综合建议）
+## Security and Privacy
 
-结合阶段 3（反思）和阶段 4（竞品分析）的发现，综合出可执行的改进方案：
+| Item | Detail |
+|------|--------|
+| External endpoints | `api.github.com` only (via `gh` CLI) |
+| Data leaving machine | Only git commit content and PR descriptions |
+| Data staying local | All file contents (unless explicitly pushed) |
+| Credential handling | Managed via `gh auth`; never hardcode tokens |
 
-- 示例："参考竞品 X 添加 GitHub Actions 工作流"
-- 示例："重构模块 Y 以提升性能，参考竞品 Z 的实现"
+> **Trust Statement:** This skill interacts exclusively with `api.github.com` through the official GitHub CLI. Only install if you trust the GitHub platform with your repository data.
 
-### 阶段 6：Iteration（自动改进）
+## Dependencies
 
-将综合建议应用到本地代码库：
+| Tool | Min Version | Install |
+|------|-------------|---------|
+| `gh` | 2.40 | [cli.github.com](https://cli.github.com/) |
+| `git` | 2.30 | System package manager |
 
-```bash
-# 提交优化后的代码
-git commit -m "feat: super upgrade based on competitor analysis"
-```
+Run `gh auth login` once before first use.
 
-> 如变更范围较大，提交前须向用户确认。
+## Troubleshooting
 
-### 阶段 7：Validation（验证与下一轮）
+**Token expired:** `gh auth logout && gh auth login`
 
-```bash
-# 推送到 GitHub
-git push origin main
+**Push rejected (non-fast-forward):** `git pull --rebase origin main && git push`
 
-# 或创建 PR
-gh pr create --title "..." --body "..."
+**`gh` not found:** `brew install gh` / `sudo apt install gh` / `winget install GitHub.cli`
 
-# 验证 CI/CD 状态
-gh run list --limit 5
-```
-
-向用户展示最终 GitHub 链接，并总结驱动变更的深度反思和竞品洞察。
-
----
-
-## 常用命令速查
-
-| 操作 | 命令 |
-|------|------|
-| 查看仓库 | `gh repo view <owner>/<repo>` |
-| 克隆仓库 | `gh repo clone <owner>/<repo>` |
-| 创建仓库 | `gh repo create <name> --private` |
-| 搜索仓库 | `gh search repos <keyword> --sort stars` |
-| 创建 PR | `gh pr create --title "<title>" --body "<body>"` |
-| 列出 Issues | `gh issue list` |
-| 查看 CI 状态 | `gh run list --limit 5` |
-| Fork 仓库 | `gh repo fork <owner>/<repo>` |
-| 列出 PR | `gh pr list` |
-| 合并 PR | `gh pr merge <id> --squash` |
-
-## 安全与隐私
-
-| 项目 | 说明 |
-|------|------|
-| 外部端点 | `api.github.com`（仅通过 `gh` CLI 调用） |
-| 离开本机的数据 | 仅 git 提交内容和 PR 描述 |
-| 不离开本机的数据 | 本地文件内容（除非明确 push） |
-| 凭证处理 | 使用 `gh auth` 管理，不硬编码 Token |
-
-> **信任声明**：本技能通过 GitHub CLI 与 `api.github.com` 交互。仅在您信任 GitHub 平台的前提下安装使用。
-
-## 依赖要求
-
-- `gh`（GitHub CLI）：[安装指南](https://cli.github.com/)
-- `git`：系统自带或通过包管理器安装
-- 已通过 `gh auth login` 完成认证
+For advanced edge cases, see [`references/workflow.md`](references/workflow.md).
