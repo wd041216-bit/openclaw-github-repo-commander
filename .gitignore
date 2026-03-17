@@ -1,4 +1,33 @@
-# 编辑器
+# Dependencies
+node_modules/
+vendor/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.orig
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Environment and secrets
+.env
+.env.*
+*.secret
+*.key
+*.pem
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Editor and OS
 .vscode/
 .idea/
 *.sublime-project
@@ -6,8 +35,6 @@
 .DS_Store
 Thumbs.db
 
-# 临时文件
-*.tmp
-*.bak
-*.swp
-*~
+# Build and output artifacts
+output/
+*.log

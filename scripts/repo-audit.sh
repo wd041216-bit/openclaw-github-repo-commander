@@ -3,7 +3,7 @@
 # Usage: ./scripts/repo-audit.sh [path-to-repo]
 # If no path given, audits the current directory.
 
-set -euo pipefail
+set -uo pipefail
 
 REPO_PATH="${1:-.}"
 PASS=0
