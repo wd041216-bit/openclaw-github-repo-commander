@@ -1,0 +1,9 @@
+{
+  "name": "openclaw-github-repo-commander",
+  "version": "2.1.0",
+  "description": "Ultimate GitHub repository management skill powered by the 7-Stage Super Workflow.",
+  "author": "wd041216-bit",
+  "homepage": "https://github.com/wd041216-bit/openclaw-github-repo-commander",
+  "tags": ["github", "workflow", "management", "super-workflow", "code-review", "refactor"],
+  "license": "MIT"
+}
