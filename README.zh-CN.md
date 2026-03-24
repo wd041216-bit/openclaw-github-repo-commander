@@ -26,7 +26,7 @@ English README: [README.md](./README.md)
 把仓库 clone 到你的 skill 目录，或在支持文件式 skill 的运行时里直接使用 [SKILL.md](./SKILL.md)。
 
 ```bash
-git clone https://github.com/wd041216-bit/openclaw-github-repo-commander.git \
+git clone https://github.com/wd041216-bit/github-repo-commander.git \
   ~/.codex/skills/github-repo-commander
 ```
 

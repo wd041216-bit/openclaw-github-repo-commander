@@ -27,7 +27,7 @@ For the skill definition, see [SKILL.md](./SKILL.md).
 Clone the repo into your skills directory, or attach [SKILL.md](./SKILL.md) directly in ecosystems that support file-based skills.
 
 ```bash
-git clone https://github.com/wd041216-bit/openclaw-github-repo-commander.git \
+git clone https://github.com/wd041216-bit/github-repo-commander.git \
   ~/.codex/skills/github-repo-commander
 ```
 

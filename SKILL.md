@@ -1,6 +1,6 @@
 ---
 name: github-repo-commander
-homepage: https://github.com/wd041216-bit/openclaw-github-repo-commander
+homepage: https://github.com/wd041216-bit/github-repo-commander
 description: Audit, polish, and package GitHub repositories before open-sourcing, sharing, or community submission, with privacy checks, README upgrades, metadata alignment, and discoverability improvements.
 ---
 
